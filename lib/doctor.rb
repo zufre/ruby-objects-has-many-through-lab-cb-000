@@ -1,26 +1,28 @@
 class Doctor
-  # has a name
-  attr_accessor :name
-
-  # initializes with a name and an empty collection of appointments
+  @@all = []
+    attr_accessor :patient, :appointment, :doctor, :name
   def initialize(name)
     @name = name
-    @appointments = []
+    @@all << self
   end
 
-  # adds a new appointment to the doctor's @appointments array and tells that appointment that it belongs to the doctor
-  def add_appointment(appointment)
-    @appointments << appointment
+  def self.all
+    @@all
+  end
+  def new_appointment(patient, date)
+    appointment = Appointment.new(patient, self, date)
     appointment.doctor = self
+
   end
 
-  # has many appointments
   def appointments
-    @appointments
+    Appointment.all.select do |appointment|
+      appointment.doctor == self
+    end
   end
-
-  # has many patients, through appointments
   def patients
-    self.appointments.map { |appointment| appointment.patient }
+    appointments.map do |appointment|
+      appointment.doctor
+    end
   end
 end
