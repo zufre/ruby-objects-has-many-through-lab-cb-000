@@ -10,16 +10,20 @@ class Patient
   def self.all
     @all
   end
+  
   def new_appointment(doctor, date)
     appointment = Appointment.new(self, doctor, date)
     appointment.patient = self
     appointment
   end
-  def appointments
+
+  def appointm
+    ents
     Appointment.all.select do |appointment|
       appointment.patient == self
     end
   end
+
   def doctors
     appointments.map do |appointment|
       appointment.doctor

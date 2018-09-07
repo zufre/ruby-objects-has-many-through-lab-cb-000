@@ -10,7 +10,7 @@ class Doctor
   def self.all
     @@all
   end
-  
+
   def new_appointment(patient, date)
     appointment = Appointment.new(patient, self, date)
     appointment.doctor = self
@@ -23,7 +23,7 @@ class Doctor
       appointment.doctor == self
     end
   end
-  
+
   def patients
     appointments.map do |appointment|
       appointment.patient
